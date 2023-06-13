@@ -9,13 +9,9 @@ export const getAxios = (url) => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-            const fetchData = async () => {
-                const { data } = await axios.get(url);
-                setData(data);
-        };
-
-        fetchData();
-
+            axios.get(url)
+                .then(res => setData(res.data))
+                .catch(error => console.log(error))
     },[])
 
     return {data}
@@ -23,75 +19,36 @@ export const getAxios = (url) => {
 }
 
 // POST METHODS
-export const postAxios = (url) => {
+export const postAxios = (url, dataPost) => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [ data, setData] = useState(null)
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-        const fetchData = async (userId, title, body) => {
-            try{
-                const { data } = await axios.post(
-                    url,
-                    { 
-                        userId,
-                        body,
-                        title
-                    });
-                setData(data);
-            }
-            catch (error){
-                console.log(error)
-            }
+        axios.post(url, dataPost)
+            .then(res =>setData(res.data))
+            .catch(error =>console.log(error))
                 
-        };
-
-        fetchData(
-            1,
-            'Bacon',
-            'Bacon description'
-        );
-
-    },[])
+        },[])
 
     return { data }
     
 }
 
 // PUT METHODS
-export const putAxios = (url) => {
+export const putAxios = (url, id, dataPut) => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [ data, setData] = useState(null)
 
+    let endopoint = `${url}${id}`
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-        const fetchData = async (id, userId, title, body) => {
-            try{
-                const { data } = await axios.put(
-                    url,
-                    { 
-                        id,
-                        userId,
-                        body,
-                        title
-                    });
-                setData(data);
-            }
-            catch (error){
-                console.log(error)
-            }
-                
-        };
-
-        fetchData(
-            1,
-            1,
-            'Loncha',
-            'Loncha description'
-        );
-
+        axios.put(endopoint, dataPut)
+            .then(res => setData(data))
+            .catch(error => console.log(error))
     },[])
 
     return { data }
@@ -100,26 +57,18 @@ export const putAxios = (url) => {
 
 
 // DELETE METHODS
-export const deleteAxios = (url) => {
+export const deleteAxios = (url, id) => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [ data, setData] = useState(null)
 
+    let endopoint = `${url}${id}`
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-        const fetchData = async() => {
-            try{ 
-                const { data } = await axios.delete(url);
-                setData(data);
-            }
-            catch (error){
-                console.log(error)
-            }
-                
-        };
-
-        fetchData(285);
-
+        axios.delete(endopoint)
+            .then( res => setData(res.data) )
+            .catch (error => console.log(error))    
     },[])
 
     return { data }
