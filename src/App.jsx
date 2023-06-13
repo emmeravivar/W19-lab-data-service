@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { helperApi } from './CRUDapi'
+import { helperApi } from './helpers/api'
 import { getAxios,  putAxios, deleteAxios, postAxios} from './useThenCatch'
 import './App.css'
 
